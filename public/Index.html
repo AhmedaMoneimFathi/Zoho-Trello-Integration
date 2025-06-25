@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Zoho ↔ Trello Integration</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Zoho ↔ Trello Integration</h1>
+    
+    <div class="integration-visual">
+      <div class="platform zoho-platform">
+        <div class="platform-icon zoho-icon">Z</div>
+        <span class="platform-name">Zoho</span>
+      </div>
+      
+      <div class="connection-line">
+        <div class="connection-dot"></div>
+        <div class="connection-flow"></div>
+        <div class="connection-dot"></div>
+      </div>
+      
+      <div class="platform trello-platform">
+        <div class="platform-icon trello-icon">T</div>
+        <span class="platform-name">Trello</span>
+      </div>
+    </div>
+    
+    <button id="integrateBtn" class="integrate-btn">
+      <span class="btn-text">Start Integration</span>
+      <div class="btn-loader"></div>
+    </button>
+    
+    <div id="output" class="output"></div>
+  </div>
+
+  <script>
+    document.getElementById('integrateBtn').addEventListener('click', async () => {
+      const button = document.getElementById('integrateBtn');
+      const output = document.getElementById('output');
+      const integrationVisual = document.querySelector('.integration-visual');
+      
+      // Start loading state
+      button.classList.add('loading');
+      integrationVisual.classList.add('integrating');
+      output.innerHTML = "🔄 Running integration...";
+      output.className = 'output loading';
+
+      try {
+        const res = await fetch('http://localhost:3000/integrate', {
+          method: 'POST'
+        });
+
+        const data = await res.json();
+
+        // Stop loading state
+        button.classList.remove('loading');
+        integrationVisual.classList.remove('integrating');
+
+        if (data.success) {
+          integrationVisual.classList.add('success');
+          const messages = data.results.map(r => {
+            if (r.status === 'created') {
+              return `✅ Trello board created for "${r.deal}"`;
+            } else {
+              return `⏭️ Already integrated: "${r.deal}"`;
+            }
+          }).join('<br>');
+          output.innerHTML = messages;
+          output.className = 'output success';
+        } else {
+          integrationVisual.classList.add('error');
+          output.innerHTML = `❌ Error: ${data.error}`;
+          output.className = 'output error';
+        }
+      } catch (err) {
+        button.classList.remove('loading');
+        integrationVisual.classList.remove('integrating');
+        integrationVisual.classList.add('error');
+        output.innerHTML = `❌ Request failed: ${err.message}`;
+        output.className = 'output error';
+      }
+    });
+  </script>
+</body>
+</html>

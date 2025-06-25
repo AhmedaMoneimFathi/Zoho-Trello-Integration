@@ -1,0 +1,348 @@
+/* 
+   Theme Variables
+ */
+:root {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --success: #48bb78;
+    --error: #f56565;
+    --neutral: #cbd5e0;
+    --light-bg: #f0fff4;
+    --text-dark: #2d3748;
+    --text-medium: #4a5568;
+    --card-bg: rgba(255, 255, 255, 0.95);
+  }
+  
+  /* 
+     Reset & Base
+  */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .container {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 48px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* 
+     Platform Icons
+  */
+  .integration-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    position: relative;
+  }
+  
+  .platform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .platform-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .zoho-icon {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+  }
+  
+  .trello-icon {
+    background: linear-gradient(135deg, #0079bf, #005f8f);
+    box-shadow: 0 8px 32px rgba(0, 121, 191, 0.3);
+  }
+  
+  .platform-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-medium);
+  }
+  
+  /* 
+     Connection Line
+   */
+  .connection-line {
+    display: flex;
+    align-items: center;
+    margin: 0 40px;
+    position: relative;
+  }
+  
+  .connection-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--neutral);
+    transition: all 0.3s ease;
+  }
+  
+  .connection-flow {
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--neutral) 0%, #e2e8f0 50%, var(--neutral) 100%);
+    margin: 0 8px;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .connection-flow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+    transition: all 0.8s ease;
+  }
+  
+  /* 
+     Integration States
+   */
+  .integration-visual.integrating .platform-icon {
+    transform: scale(1.1);
+    animation: pulse 2s infinite;
+  }
+  
+  .integration-visual.integrating .connection-dot {
+    background: var(--primary);
+    animation: pulse 1.5s infinite;
+  }
+  
+  .integration-visual.integrating .connection-flow::before {
+    left: 100%;
+    animation: flow 1.5s infinite;
+  }
+  
+  .integration-visual.success .platform-icon {
+    transform: scale(1.05);
+  }
+  
+  .integration-visual.success .connection-dot {
+    background: var(--success);
+  }
+  
+  .integration-visual.success .connection-flow {
+    background: linear-gradient(90deg, var(--success) 0%, #68d391 50%, var(--success) 100%);
+  }
+  
+  .integration-visual.error .connection-dot {
+    background: var(--error);
+  }
+  
+  .integration-visual.error .connection-flow {
+    background: linear-gradient(90deg, var(--error) 0%, #feb2b2 50%, var(--error) 100%);
+  }
+  
+  /* 
+     Buttons
+   */
+  .integrate-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    padding: 18px 36px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  }
+  
+  .integrate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+  }
+  
+  .integrate-btn:active {
+    transform: translateY(0);
+  }
+  
+  .integrate-btn.loading {
+    background: #a0aec0;
+    cursor: not-allowed;
+  }
+  
+  .integrate-btn.loading .btn-text {
+    opacity: 0;
+  }
+  
+  .btn-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .integrate-btn.loading .btn-loader {
+    opacity: 1;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* 
+     Output Box
+  */
+  .output {
+    margin-top: 32px;
+    font-size: 16px;
+    line-height: 1.8;
+    padding: 24px;
+    border-radius: 16px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .output.loading {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+    color: var(--text-medium);
+    border: 2px solid #e2e8f0;
+  }
+  
+  .output.success {
+    background: linear-gradient(135deg, var(--light-bg), #c6f6d5);
+    color: #22543d;
+    border: 2px solid #9ae6b4;
+  }
+  
+  .output.error {
+    background: linear-gradient(135deg, #fed7d7, #feb2b2);
+    color: #742a2a;
+    border: 2px solid var(--error);
+  }
+  
+  /* 
+     Animations
+  */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes flow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+  /* 
+     Responsive Design
+  */
+  @media (max-width: 640px) {
+    .container {
+      padding: 32px 24px;
+      margin: 20px;
+    }
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 32px;
+    }
+  
+    .integration-visual {
+      flex-direction: column;
+      gap: 24px;
+    }
+  
+    .connection-line {
+      flex-direction: column;
+      margin: 0;
+      gap: 8px;
+    }
+  
+    .connection-flow {
+      width: 4px;
+      height: 60px;
+      margin: 8px 0;
+    }
+  
+    .connection-flow::before {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, transparent 0%, var(--primary) 50%, transparent 100%);
+    }
+  
+    .integration-visual.integrating .connection-flow::before {
+      top: 100%;
+      left: 0;
+      animation: flowVertical 1.5s infinite;
+    }
+  
+    .platform-icon {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+    }
+  }
+  
+  @keyframes flowVertical {
+    0% { top: -100%; }
+    100% { top: 100%; }
+  }
+  
